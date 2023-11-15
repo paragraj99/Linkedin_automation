@@ -7,8 +7,8 @@ from selenium.webdriver.common.keys import Keys
 from openpyxl import Workbook
 
 # Configure your LinkedIn username and password
-linkedin_username = "paragrajwaghmare@gmail.com"
-linkedin_password = "king6369"
+linkedin_username = "yourmail@gmail.com"
+linkedin_password = "your_password"
 
 # Create a new instance of the Chrome driver
 driver = webdriver.Chrome()

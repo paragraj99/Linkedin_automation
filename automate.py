@@ -1,6 +1,3 @@
-# paragrajwaghmare@gmail.com
-# king6369
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -15,11 +12,9 @@ driver = webdriver.Chrome()
 # Open LinkedIn and log in manually
 driver.get('https://www.linkedin.com')
 
-
-
 # Configure your LinkedIn username and password
-linkedin_username = "paragrajwaghmare@gmail.com"
-linkedin_password = "king6369"
+linkedin_username = "yourmail@gmail.com"
+linkedin_password = "your_password"
 
 # Create a new instance of the Chrome driver
 driver = webdriver.Chrome()
