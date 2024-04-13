@@ -22,20 +22,6 @@ try:
     # Open LinkedIn and log in manually
     driver.get('https://www.linkedin.com')
 
-    # # Configure your LinkedIn username and password
-    # linkedin_username = "paragrajwaghmare@gmail.com"
-    # linkedin_password = "king6369"
-    # # linkedin_username = input("Please enter your Email or Mobile No. : ")
-    # # linkedin_password = input("Please enter your Password : ")
-
-    # # Log in to LinkedIn
-    # username_field = driver.find_element(By.ID, "session_key")
-    # password_field = driver.find_element(By.ID, "session_password")
-    # username_field.send_keys(linkedin_username)
-    # password_field.send_keys(linkedin_password)
-    # password_field.send_keys(Keys.RETURN)
-    # time.sleep(60)
-
     wait = WebDriverWait(driver, 20)
     # wait.until(EC.url_contains("feed"))
 
@@ -43,10 +29,10 @@ try:
     search_query = "investment banking"
     # search_query = input("Please enter your Search query : ")
 
-    start_page = 15
-    # num_pages_to_search = int(input("Please enter the start Page No. to get Companies data : "))
-    num_pages_to_search = 15  # Set the number of pages to search
-    # num_pages_to_search = int(input("Please enter the Page No. to get Companies data : "))
+    # start_page = 15
+    start_page = int(input("Please enter the start Page No. to get Companies data : "))
+    # num_pages_to_search = 15  # Set the number of pages to search
+    num_pages_to_search = int(input("Please enter the last Page No. to get Companies data : "))
 
     driver.get(f"https://www.linkedin.com/search/results/companies/?keywords={search_query}&origin=SWITCH_SEARCH_VERTICAL&page={start_page}&sid=~Sb")
 
