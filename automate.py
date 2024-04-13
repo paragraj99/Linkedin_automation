@@ -1,9 +1,9 @@
-
 import selenium
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import time
 import pandas as pd
 from selenium.webdriver.chrome.options import Options
@@ -22,13 +22,31 @@ try:
     # Open LinkedIn and log in manually
     driver.get('https://www.linkedin.com')
 
+    # # Configure your LinkedIn username and password
+    # linkedin_username = "paragrajwaghmare@gmail.com"
+    # linkedin_password = "king6369"
+    # # linkedin_username = input("Please enter your Email or Mobile No. : ")
+    # # linkedin_password = input("Please enter your Password : ")
+
+    # # Log in to LinkedIn
+    # username_field = driver.find_element(By.ID, "session_key")
+    # password_field = driver.find_element(By.ID, "session_password")
+    # username_field.send_keys(linkedin_username)
+    # password_field.send_keys(linkedin_password)
+    # password_field.send_keys(Keys.RETURN)
+    # time.sleep(60)
+
     wait = WebDriverWait(driver, 20)
+    # wait.until(EC.url_contains("feed"))
 
     # Perform a search
-    search_query = input("Please enter your Search query : ")
+    search_query = "investment banking"
+    # search_query = input("Please enter your Search query : ")
 
-    start_page = int(input("Please enter the start Page No. to get Companies data : "))
-    num_pages_to_search = int(input("Please enter the last Page No. to get Companies data : "))
+    start_page = 15
+    # num_pages_to_search = int(input("Please enter the start Page No. to get Companies data : "))
+    num_pages_to_search = 15  # Set the number of pages to search
+    # num_pages_to_search = int(input("Please enter the Page No. to get Companies data : "))
 
     driver.get(f"https://www.linkedin.com/search/results/companies/?keywords={search_query}&origin=SWITCH_SEARCH_VERTICAL&page={start_page}&sid=~Sb")
 
@@ -102,6 +120,39 @@ try:
                             company_website = visit_website_option.get_attribute("href")    
                             all_company_websites.append(company_website)
                             print("test weblink : " , company_website)
+                        
+                        except selenium.common.exceptions.NoSuchElementException as e:
+                            time.sleep(15)
+                            element = driver.find_element(By.LINK_TEXT, 'About')
+                            element.click() 
+                            
+                            # Scroll down to the bottom of the page to load more content
+                            last_height = driver.execute_script("return document.body.scrollHeight")
+                            while True:
+                                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                                time.sleep(5)  # Adjust the sleep time as needed
+                                new_height = driver.execute_script("return document.body.scrollHeight")
+                                if new_height == last_height:
+                                    break
+                                last_height = new_height
+                                time.sleep(5)
+
+                            # Find the element by class name
+                            element = driver.find_element(By.CLASS_NAME, "overflow-hidden")
+                            
+                            # Find the <a> tag within the element
+                            link_element = element.find_element(By.TAG_NAME, "a")
+                            
+                            # Extract the href attribute from the <a> tag
+                            href_link = link_element.get_attribute("href")
+                            all_company_websites.append(href_link)
+                            
+                            # Print the extracted href link
+                            print("Href link:", href_link)
+
+                            # Go back to the search results page
+                            # driver.back()
+                        time.sleep(5)  # Adjust delay as needed
                             
                     except selenium.common.exceptions.NoSuchElementException as e:
                         all_company_websites.append("Information not available")
@@ -168,3 +219,4 @@ except Exception as e:
 finally:
     # Close the browser session
     driver.quit()
+
